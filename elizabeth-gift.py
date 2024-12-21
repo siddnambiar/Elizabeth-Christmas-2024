@@ -53,18 +53,19 @@ CONTEXTS = [
 
 
 def load_api_key():
-   try:
-       with open("config.toml", "r") as f:
-           config = toml.load(f)
-           return config["google"]["api_key"]
-   except FileNotFoundError:
-       st.error("config.toml file not found. Please add it in the root directory")
+    """Loads the API key from Streamlit Cloud secrets or environment."""
+    try:
+        api_key = st.secrets["google"]["api_key"]
+        if api_key:
+          return api_key
+        else:
+          st.error("API key not found in Streamlit secrets. Please ensure it has been configured.")
+          return None
+    except KeyError:
+       st.error("API key not found in Streamlit secrets. Please ensure it has been configured under google/api_key.")
        return None
-   except KeyError:
-       st.error("API key not found in config.toml. Please add it in the google section")
-       return None
-   except Exception as e:
-      st.error(f"An error occurred: {e}")
+    except Exception as e:
+      st.error(f"An error occurred during API key load: {e}")
       return None
 
 # Initialize Gemini and add to session state
