@@ -1,11 +1,10 @@
+import toml
 import streamlit as st
 import random
 import time
 import google.generativeai as genai
-import configparser
 import re
 import json
-
 # --- Configuration ---
 THEME = {
     "background_color": "#ffffff",  # White background
@@ -53,18 +52,20 @@ CONTEXTS = [
 ]
 
 
-# Load API key from creds.ini
 def load_api_key():
-    config = configparser.ConfigParser()
-    config.read("creds.ini")
-    try:
-        return config["google"]["api_key"]
-    except KeyError:
-        st.error("API key not found in creds.ini. Please add it in the google section")
-        return None
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
-        return None
+   try:
+       with open("config.toml", "r") as f:
+           config = toml.load(f)
+           return config["google"]["api_key"]
+   except FileNotFoundError:
+       st.error("config.toml file not found. Please add it in the root directory")
+       return None
+   except KeyError:
+       st.error("API key not found in config.toml. Please add it in the google section")
+       return None
+   except Exception as e:
+      st.error(f"An error occurred: {e}")
+      return None
 
 # Initialize Gemini and add to session state
 def initialize_gemini():
