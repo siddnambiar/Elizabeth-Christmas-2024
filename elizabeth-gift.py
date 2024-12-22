@@ -439,6 +439,8 @@ def display_gift_card():
     st.markdown(
          f"""
          <div class='info-container' style='animation: slideInFromBottom 0.8s ease-out;'>
+             <p class='small-text
+         <div class='info-container' style='animation: slideInFromBottom 0.8s ease-out;'>
              <p class='small-text'>
                   Have fun playing with hot glass! In this activity we’ll show you how to stretch & pull 2,000 degree glass to create a 8-12″ colorful flower. These make great Mother’s Day gifts. We handle the skilled part and you do the fun part. Arrive at the hour you register for to get your numbered ticket. Your individual 15 minute working time is within that hour. Pieces will be cooled & ready for pick up 2 days later. Want to do all the work on your own? Try our 6hr Beginner Glassblowing Class.
              </p>
