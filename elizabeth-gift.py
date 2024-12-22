@@ -8,12 +8,12 @@ import json
 # --- Configuration ---
 THEME = {
     "background_color": "#f70696",  # White background
-    "text_color": "#ffffff",  # Dark grey text
-    "button_text_color": "#757575",  # White text on buttons
+    "text_color": "#ffffff", # White text
+    "button_text_color": "#757575",  # Dark grey button text
     "button_color": "#e0e0e0",  # Light gray buttons
     "button_hover_color": "#d0d0d0",  # Slightly darker gray on hover
     "accent_color": "#e67e22",  # Orange accent color
-    "font_family": "sans-serif",
+    "font_family": "serif",
     "padding": "30px",
     "border_color": "#cccccc", # Light grey border
 }
