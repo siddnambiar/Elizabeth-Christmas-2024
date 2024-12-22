@@ -128,7 +128,6 @@ def generate_question_data(model):
 
 st.set_page_config(
     page_title="A Gift for Elizabeth",
-    layout="wide",
     initial_sidebar_state="collapsed",
 )
 
