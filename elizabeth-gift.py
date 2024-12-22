@@ -8,7 +8,8 @@ import json
 # --- Configuration ---
 THEME = {
     "background_color": "#f70696",  # White background
-    "text_color": "#757575",  # Dark grey text
+    "text_color": "#ffffff",  # Dark grey text
+    "button_text_color": "#757575",  # White text on buttons
     "button_color": "#e0e0e0",  # Light gray buttons
     "button_hover_color": "#d0d0d0",  # Slightly darker gray on hover
     "accent_color": "#e67e22",  # Orange accent color
@@ -192,7 +193,7 @@ def apply_custom_css():
         }}
        .stButton>button {{
             background-color: {THEME["button_color"]};
-            color: {THEME["text_color"]};
+            color: {THEME["button_text_color"]};
             padding: 12px 25px;
             border-radius: 8px;
             border: none;
