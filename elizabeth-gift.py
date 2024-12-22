@@ -281,7 +281,7 @@ def reset_game_state():
 def display_landing_screen():
     """Display the initial landing screen with animation and reset button"""
     st.markdown(
-        "<h1 class='title-text'>Hello! Good Morning.<br/>I hope you're having a wonderful Christmas morning.</h1>",
+        "<h1 class='title-text'>Hello Elizabeth! Good Morning.<br/>I hope you're having a wonderful Christmas morning.</h1>",
         unsafe_allow_html=True
     )
 
