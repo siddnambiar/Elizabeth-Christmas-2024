@@ -434,7 +434,7 @@ def display_gift_card():
         unsafe_allow_html=True
     )
 
-    st.markdown("<h3 class='title-text' style='font-size: 1.9em; animation: slideInFromBottom 0.8s ease-out;'>Carly and Stella also Approve of this Gift!</h3>", unsafe_allow_html=True)
+    #st.markdown("<h3 class='title-text' style='font-size: 1.9em; animation: slideInFromBottom 0.8s ease-out;'>Carly and Stella also Approve of this Gift!</h3>", unsafe_allow_html=True)
 
     st.markdown(
          f"""
@@ -454,11 +454,11 @@ def display_gift_card():
     with col2:
         if st.button("See More Classes", use_container_width=True):
             st.markdown(
-                f"<div class='small-text'><a href='https://corradetti.com/' target='_blank'>Corradetti Website</a></div>",
+                f"<div class='small-text'><a href='https://corradetti.com/mini-workshops/' target='_blank'>Corradetti Mini-Workshops</a></div>",
                 unsafe_allow_html=True
             )
 
-        if st.button("Continue", use_container_width=True):
+        if st.button("A Note", use_container_width=True):
             st.session_state.current_screen = 'message_screen'
             st.rerun()
 
