@@ -41,7 +41,7 @@ if 'intro_animation_played' not in st.session_state:
 
 
 # --- Animal and Context Data ---
-ANIMALS = ["squirrel", "raccoon", "possum", "bluejay", "cardinal"]
+ANIMALS = ["squirrel", "raccoon", "possum", "cardinal", "nuthatches", "blue jay", "deer", "butterfly", "hummingbird", "chipmunk"]
 CONTEXTS = [
     "diet",
     "habitat",
