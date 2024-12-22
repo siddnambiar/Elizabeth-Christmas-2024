@@ -281,14 +281,15 @@ def reset_game_state():
 def display_landing_screen():
     """Display the initial landing screen with animation and reset button"""
     st.markdown(
-        "<h1 class='title-text'>Good Morning, my Elizabeth.<br/>I hope you have a beautiful Christmas.</h1>",
+        "<h1 class='title-text'>Hello! Good Morning.<br/>I hope you're having a wonderful Christmas morning.</h1>",
         unsafe_allow_html=True
     )
 
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
       if st.session_state.intro_animation_played == False:
-          if st.button("Begin Your Morning Adventure!", use_container_width=True):
+          st.markdown("Would you like to play a fun game to learn more about our backyard friends?", unsafe_allow_html=True)
+          if st.button("Click this button to start!", use_container_width=True):
             with st.spinner("Let's Get Started..."):
               time.sleep(1)
               st.session_state.intro_animation_played = True
