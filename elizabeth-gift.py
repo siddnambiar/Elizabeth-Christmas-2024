@@ -36,7 +36,6 @@ SESSION_KEYS = {
     "llm_initialized": False,
     "question_number": 0,
     "intro_animation_played": False,
-    "password_attempt": False # New state variable to track if password has been entered in the note section
 }
 
 # Initialize session state variables using a loop
@@ -425,8 +424,6 @@ def display_gift_card():
         unsafe_allow_html=True
     )
 
-    #st.markdown("<h3 class='title-text' style='font-size: 1.9em; animation: slideInFromBottom 0.8s ease-out;'>Carly and Stella also Approve of this Gift!</h3>", unsafe_allow_html=True)
-
     st.markdown(
          f"""
          <div class='info-container' style='animation: slideInFromBottom 0.8s ease-out;'>
@@ -452,42 +449,41 @@ def display_gift_card():
             )
 
         if st.button("A Note", use_container_width=True):
-            st.session_state.current_screen = 'password_screen'
+            st.session_state.current_screen = 'message_screen'
             st.rerun()
 
-
-def display_password_screen():
-    """Display password input and validate."""
-    st.markdown("<h1 class='title-text' style='animation: slideInFromBottom 0.8s ease-out;'>A Secret Note</h1>", unsafe_allow_html=True)
-
-    password = st.text_input("Enter the password:", type="password")
-
-    if password:
-        if password == st.secrets["note_password"]:  # Access password from secrets.toml
-             st.session_state.password_attempt = True # Correct password attempt is logged
-             st.session_state.current_screen = 'message_screen'
-             st.rerun()
-        else:
-             st.error("Incorrect password, please try again.")
-
-
 def display_message_screen():
-    """Display the final message screen with personal note."""
-    st.markdown("<h1 class='title-text' style='animation: slideInFromBottom 0.8s ease-out;'>My Heart To You</h1>", unsafe_allow_html=True)
+    """Display the final message screen with personal Christmas note."""
+    st.markdown("<h1 class='title-text' style='animation: slideInFromBottom 0.8s ease-out;'>My Heart To You 💝</h1>", unsafe_allow_html=True)
     st.markdown(
         """
         <div class='message-box' style='animation: slideInFromBottom 0.8s ease-out;'>
             <p class='small-text'>
-                Elizabeth, my love, thank you for everything that you do, everything that you are,
-                and all that you have worked to become. It is truly a privilege to be your partner
-                and I could not ask for a more thoughtful, caring, and loving soul to spend my life with.
-                I see you, I cherish you, and I love you. Merry Christmas, my beautiful wife!
+                My dearest Elizabeth 🌟,
+                <br><br>
+                First, merry Christmas! 🎄 I think about what you mentioned to me about how holidays are happier for you since we have been together, and thinking of that warms my heart. Very few things make me as happy as seeing you happy, and I am constantly thankful that I get to spend our holidays together for years and years to come. ✨
+                <br><br>
+                As with any happy relationship, we have had our challenges. For the longest time in life, I lived by a set of rules, ideologies, and values that were instilled in me because of where and how I was raised. Looking back, moving to the US was a daunting task, and I really should have been more intentional about my feelings during the transitory period of adjusting to life in the US. 🌎
+                <br><br>
+                As it stands, I never did do any exploration around my feelings and continued to live life as though the same set of rules, ideologies, and values would hold me in good stead as I navigated life in this country. This was a mistake, and I know that now because I am finally starting to understand that the sense of discomfort I had felt through so many social, professional, and private experiences over the years wasn't intended for me to "fix" myself and "get over" the discomfort, but instead was because my mind and body were trying to communicate my likes, dislikes, wants, and opinions. For most of my life, I simply could not figure out how to be gentle with myself and try to pay attention to the discomfort and sit with it, and to not let it overwhelm me. 🫂
+                <br><br>
+                A lot of that started changing the day I met you. 💫 I didn't know it at the time, and neither you nor I had any idea what sort of personal journeys each of us would go through. I sometimes tell you about qualities that I admire in you - such as your sense of loyalty to loved ones, the warmth you bring to close relationships, and the empathy you have for your fellow humans and especially critters. 🐾
+                <br><br>
+                The qualities of yours that I probably don't talk about as much though are how you've always been gentle, welcoming, and understanding of all things about me. This year especially, I know I've thrown some curveballs at you. I would have completely understood if all of these curveballs frustrated you. And I'm sure there were times you felt frustrated. And yet you've ALWAYS been willing to listen to me, and consider my point of view, and you've always prioritized the importance of having an open communication channel. 💝
+                <br><br>
+                I cannot begin to express how grateful I am for this, and how I think the reason I've been able to make so much progress on my social, cultural, and sexual identities is because of the implicit mental space you've given me to work some of this shit out. 🌈
+                <br><br>
+                You're an incredible partner, and I am very thankful to have you. Merry Christmas, my love. 🎄✨
+                <br><br>
+                Love,<br>
+                Sidd 💕
             </p>
         </div>
         """,
         unsafe_allow_html=True
     )
-
+    
+    
 def main():
     """Main application entry point."""
     try:
@@ -499,7 +495,6 @@ def main():
             'critter_game': display_critter_game,
             'reveal_glass': display_reveal_glass,
             'gift_card': display_gift_card,
-            'password_screen': display_password_screen,
             'message_screen': display_message_screen
         }
 
@@ -511,8 +506,9 @@ def main():
             st.rerun()
 
     except Exception as e:
-        st.error("Something went wrong. Returning to start...")
-        st.session
+        st.error(f"Something went wrong. Returning to start... Error: {e}")
+        st.session_state.current_screen = 'landing' # Reset the screen
+        st.rerun()
 
 if __name__ == '__main__':
     main()
