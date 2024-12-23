@@ -5,52 +5,44 @@ import time
 import google.generativeai as genai
 import re
 import json
+
 # --- Configuration ---
 THEME = {
-    "background_color": "#f70696",  # Pink background
-    "text_color": "#ffffff",  # White text
-    "button_text_color": "#333333",  # Dark gray button text
-    "button_color": "#ffffff",  # White buttons
-    "button_hover_color": "#f0f0f0",  # Light gray on hover
-    "accent_color": "#ffffff",  # White accent color
+    "background_color": "#f70696",
+    "text_color": "#ffffff",
+    "button_text_color": "#333333",
+    "button_color": "#ffffff",
+    "button_hover_color": "#f0f0f0",
+    "accent_color": "#ffffff",
     "font_family": "serif",
     "padding": "30px",
-    "border_color": "#ffffff"  # White border
+    "border_color": "#ffffff"
 }
-
-# Initialize session state variables
-if 'current_screen' not in st.session_state:
-    st.session_state.current_screen = 'landing'
-if 'score' not in st.session_state:
-    st.session_state.score = 0
-if 'questions_asked' not in st.session_state:
-    st.session_state.questions_asked = set()
-if 'answered' not in st.session_state:
-    st.session_state.answered = False
-if 'glass_revealed' not in st.session_state:
-    st.session_state.glass_revealed = False
-if 'total_questions' not in st.session_state:
-    st.session_state.total_questions = 5
-if 'current_question_data' not in st.session_state:
-    st.session_state.current_question_data = {}
-if 'llm_initialized' not in st.session_state:
-    st.session_state.llm_initialized = False
-if 'question_number' not in st.session_state:
-    st.session_state.question_number = 0
-if 'intro_animation_played' not in st.session_state:
-    st.session_state.intro_animation_played = False
-
 
 # --- Animal and Context Data ---
 ANIMALS = ["squirrel", "raccoon", "possum", "cardinal", "nuthatches", "blue jay", "deer", "butterfly", "hummingbird", "chipmunk"]
-CONTEXTS = [
-    "diet",
-    "habitat",
-    "behavior",
-    "lifespan",
-    "unique abilities",
-    "communication"
-]
+CONTEXTS = ["diet", "habitat", "behavior", "lifespan", "unique abilities", "communication"]
+
+# --- Session State Initialization ---
+# Using a dictionary for easier management
+SESSION_KEYS = {
+    "current_screen": 'landing',
+    "score": 0,
+    "questions_asked": set(),
+    "answered": False,
+    "glass_revealed": False,
+    "total_questions": 5,
+    "current_question_data": {},
+    "llm_initialized": False,
+    "question_number": 0,
+    "intro_animation_played": False,
+    "password_attempt": False # New state variable to track if password has been entered in the note section
+}
+
+# Initialize session state variables using a loop
+for key, default_value in SESSION_KEYS.items():
+    if key not in st.session_state:
+        st.session_state[key] = default_value
 
 
 def load_api_key():
@@ -302,7 +294,6 @@ def display_landing_screen():
             st.session_state.current_screen = 'critter_game'
             st.rerun()
 
-
 def display_critter_game():
     """Display the critter game screen with facts and interactions."""
     st.markdown("<h1 class='title-text' style='animation: slideInFromBottom 0.8s ease-out;'>Backyard Friends</h1>", unsafe_allow_html=True)
@@ -461,8 +452,24 @@ def display_gift_card():
             )
 
         if st.button("A Note", use_container_width=True):
-            st.session_state.current_screen = 'message_screen'
+            st.session_state.current_screen = 'password_screen'
             st.rerun()
+
+
+def display_password_screen():
+    """Display password input and validate."""
+    st.markdown("<h1 class='title-text' style='animation: slideInFromBottom 0.8s ease-out;'>A Secret Note</h1>", unsafe_allow_html=True)
+
+    password = st.text_input("Enter the password:", type="password")
+
+    if password:
+        if password == st.secrets["note_password"]:  # Access password from secrets.toml
+             st.session_state.password_attempt = True # Correct password attempt is logged
+             st.session_state.current_screen = 'message_screen'
+             st.rerun()
+        else:
+             st.error("Incorrect password, please try again.")
+
 
 def display_message_screen():
     """Display the final message screen with personal note."""
@@ -492,6 +499,7 @@ def main():
             'critter_game': display_critter_game,
             'reveal_glass': display_reveal_glass,
             'gift_card': display_gift_card,
+            'password_screen': display_password_screen,
             'message_screen': display_message_screen
         }
 
